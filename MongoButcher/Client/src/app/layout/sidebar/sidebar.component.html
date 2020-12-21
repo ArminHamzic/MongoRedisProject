@@ -2,28 +2,35 @@
   <br>
   <h2 matSubheader>Navigation</h2>
   <mat-divider></mat-divider>
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
+  <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/dashboard']">
     Dashboard
   </a>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/constructions/create">
+  <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/products']">
     Products
   </a>
-
+  <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/products']">
+    <mat-icon class="underPoint">add</mat-icon>
+    Add Product
+  </a>
   <mat-divider></mat-divider>
 
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/protocols">
+  <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/action-history']">
     Action History
   </a>
 
   <mat-divider></mat-divider>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/customers">
+  <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/recipes']">
     Recipes
   </a>
-
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/customers/create">
+  <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/recipes']">
+    <mat-icon class="underPoint">add</mat-icon>
+    Add Recipe
+  </a>
+  <mat-divider></mat-divider>
+  <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/production']">
     Production
   </a>
   <mat-divider></mat-divider>

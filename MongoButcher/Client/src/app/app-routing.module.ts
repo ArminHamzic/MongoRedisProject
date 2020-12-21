@@ -12,6 +12,26 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./modules/home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: 'products',
+        loadChildren: () =>
+          import('./modules/product/product.module').then(m => m.ProductModule)
+      },
+      {
+        path: 'action-history',
+        loadChildren: () =>
+          import('./modules/action-history/action-history.module').then(m => m.ActionHistoryModule)
+      },
+      {
+        path: 'recipes',
+        loadChildren: () =>
+          import('./modules/recipe/recipe.module').then(m => m.RecipeModule)
+      },
+      {
+        path: 'production',
+        loadChildren: () =>
+          import('./modules/production/production.module').then(m => m.ProductionModule)
       }
     ]
   }
