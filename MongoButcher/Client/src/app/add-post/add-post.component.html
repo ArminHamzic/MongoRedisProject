@@ -1,0 +1,6 @@
+<h2>Create new Post</h2>
+
+<input [(ngModel)]="title" type="text" placeholder="title"/><br/>
+<input [(ngModel)]="author" type="text" placeholder="author"/><br/>
+<textarea rows="4" cols="50" [(ngModel)]="text"></textarea><br/>
+<button (click)="createPost()">Create</button>

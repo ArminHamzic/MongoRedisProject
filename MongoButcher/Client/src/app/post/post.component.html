@@ -1,0 +1,11 @@
+<div *ngIf="post !== null">
+    <div>
+        <h2>{{post.title}}</h2>
+        <h3>{{post.author}} - {{post.publishedStr}}</h3>
+        <p>{{post.text}}</p>
+        <button (click)="deletePost()">Delete</button>
+    </div>
+    <div>
+        <app-comments [postId]="post.id"></app-comments>
+    </div>
+</div>
