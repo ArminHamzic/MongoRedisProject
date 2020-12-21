@@ -1,34 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { PostComponent } from './post/post.component'
-import { AddPostComponent } from './add-post/add-post.component';
-import { CommentsComponent } from './comments/comments.component';
+import {CoreModule} from './core/core.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {SharedModule} from './shared/shared.module';
+import {SidebarComponent} from './layout/sidebar/sidebar.component';
+import {FooterComponent} from './layout/footer/footer.component';
+import {HeaderComponent} from './layout/header/header.component';
+import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    PostComponent,
-    AddPostComponent,
-    CommentsComponent
+    SidebarComponent,
+    FooterComponent,
+    HeaderComponent,
+    ContentLayoutComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'post/:id', component: PostComponent },
-      { path: 'add-post', component: AddPostComponent }
-    ])
+    // angular
+    BrowserModule,
+
+    // app
+    AppRoutingModule,
+
+    // core & shared
+    CoreModule,
+    SharedModule,
+
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
