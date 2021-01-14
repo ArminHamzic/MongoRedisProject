@@ -1,0 +1,16 @@
+<form class="formstyle" action="" #form>
+  <h2 class="field">New Recipe</h2>
+  <div>
+    <mat-form-field class="field" style="width: 95%">
+      <input id="name" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="" [(ngModel)]="recipe.name">
+      <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field  class="field" style="width: 95%">
+      <textarea matInput placeholder = "Procedure" rows="8" style="background-color:whitesmoke;"></textarea>
+    </mat-form-field>
+  </div>
+</form>
+
+

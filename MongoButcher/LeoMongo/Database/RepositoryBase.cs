@@ -23,10 +23,10 @@ namespace LeoMongo.Database
             this._databaseProvider = databaseProvider;
         }
 
-        private IMongoCollection<T> Collection =>
+        public IMongoCollection<T> Collection =>
             this._collection ??= GetCollection<T>(CollectionName);
 
-        private IClientSessionHandle Session
+        public IClientSessionHandle Session
         {
             get
             {
@@ -35,11 +35,11 @@ namespace LeoMongo.Database
             }
         }
 
-        protected UpdateDefinitionBuilder<T> UpdateDefBuilder => new UpdateDefinitionBuilder<T>();
+        public UpdateDefinitionBuilder<T> UpdateDefBuilder => new UpdateDefinitionBuilder<T>();
 
         public abstract string CollectionName { get; }
 
-        protected IMongoQueryable<T> Query()
+        public IMongoQueryable<T> Query()
         {
             if (this._transactionProvider.InTransaction)
             {
@@ -49,7 +49,7 @@ namespace LeoMongo.Database
             return Collection.AsQueryable();
         }
 
-        protected IMongoQueryable<MasterDetails<ObjectId, ObjectId>> QueryIncludeDetail<TDetail>(
+        public IMongoQueryable<MasterDetails<ObjectId, ObjectId>> QueryIncludeDetail<TDetail>(
             IRepositoryBase detailRepository,
             Expression<Func<TDetail, ObjectId>> foreignKeySelector,
             Expression<Func<T, bool>>? masterFilter = null)
@@ -63,7 +63,7 @@ namespace LeoMongo.Database
                 }, masterFilter);
         }
 
-        protected IMongoQueryable<MasterDetails<TMasterField, TDetailField>> QueryIncludeDetail<TDetail, TMasterField,
+        public IMongoQueryable<MasterDetails<TMasterField, TDetailField>> QueryIncludeDetail<TDetail, TMasterField,
             TDetailField>(
             IRepositoryBase detailRepository,
             Expression<Func<TDetail, ObjectId>> foreignKeySelector,
@@ -118,7 +118,7 @@ namespace LeoMongo.Database
         //    return joinedQuery;
         //}
 
-        protected async Task<T> InsertOneAsync(T document)
+        public async Task<T> InsertOneAsync(T document)
         {
             if (this._transactionProvider.InTransaction)
             {
@@ -132,7 +132,7 @@ namespace LeoMongo.Database
             return document;
         }
 
-        protected async Task<IReadOnlyCollection<T>> InsertManyAsync(IReadOnlyCollection<T> documents)
+        public async Task<IReadOnlyCollection<T>> InsertManyAsync(IReadOnlyCollection<T> documents)
         {
             if (this._transactionProvider.InTransaction)
             {
@@ -146,14 +146,14 @@ namespace LeoMongo.Database
             return documents;
         }
 
-        protected Task<UpdateResult> UpdateOneAsync(ObjectId id, UpdateDefinition<T> updateDefinition)
+        public Task<UpdateResult> UpdateOneAsync(ObjectId id, UpdateDefinition<T> updateDefinition)
         {
             return this._transactionProvider.InTransaction
                 ? Collection.UpdateOneAsync(Session, GetIdFilter(id), updateDefinition)
                 : Collection.UpdateOneAsync(GetIdFilter(id), updateDefinition);
         }
 
-        protected Task<UpdateResult> UpdateManyAsync(Expression<Func<T, bool>> filter,
+        public Task<UpdateResult> UpdateManyAsync(Expression<Func<T, bool>> filter,
             UpdateDefinition<T> updateDefinition)
         {
             return this._transactionProvider.InTransaction
@@ -161,28 +161,28 @@ namespace LeoMongo.Database
                 : Collection.UpdateManyAsync(filter, updateDefinition);
         }
 
-        protected Task<ReplaceOneResult> ReplaceOneAsync(ObjectId id, T document)
+        public Task<ReplaceOneResult> ReplaceOneAsync(ObjectId id, T document)
         {
             return this._transactionProvider.InTransaction
                 ? Collection.ReplaceOneAsync(Session, GetIdFilter(id), document)
                 : Collection.ReplaceOneAsync(GetIdFilter(id), document);
         }
 
-        protected Task<DeleteResult> DeleteOneAsync(ObjectId id)
+        public Task<DeleteResult> DeleteOneAsync(ObjectId id)
         {
             return this._transactionProvider.InTransaction
                 ? Collection.DeleteOneAsync(Session, GetIdFilter(id))
                 : Collection.DeleteOneAsync(GetIdFilter(id));
         }
 
-        protected Task<DeleteResult> DeleteManyAsync(Expression<Func<T, bool>> filter)
+        public Task<DeleteResult> DeleteManyAsync(Expression<Func<T, bool>> filter)
         {
             return this._transactionProvider.InTransaction
                 ? Collection.DeleteManyAsync(Session, filter)
                 : Collection.DeleteManyAsync(filter);
         }
 
-        private IMongoCollection<TCollection> GetCollection<TCollection>(string collectionName) =>
+        public IMongoCollection<TCollection> GetCollection<TCollection>(string collectionName) =>
             this._databaseProvider.Database.GetCollection<TCollection>(collectionName);
 
         private static Expression<Func<T, bool>> GetIdFilter(ObjectId id) => t => t.Id == id;
