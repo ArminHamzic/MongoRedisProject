@@ -18,5 +18,4 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.product$ = this.route.data.pipe(map(data => data.product));
   }
-
 }
