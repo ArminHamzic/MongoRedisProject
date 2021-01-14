@@ -9,8 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDBDemoApp.Core.Util;
-using MongoDBDemoApp.Core.Workloads.Comments;
-using MongoDBDemoApp.Core.Workloads.Posts;
+using MongoDBDemoApp.Core.Workloads.ActionHistories;
+using MongoDBDemoApp.Core.Workloads.Categories;
+using MongoDBDemoApp.Core.Workloads.Incredients;
+using MongoDBDemoApp.Core.Workloads.Products;
+using MongoDBDemoApp.Core.Workloads.Recipes;
 
 namespace App
 {
@@ -34,10 +37,20 @@ namespace App
             services.AddLeoMongo<MongoConfig>();
 
             // for bigger assemblies it would be alright to register those via reflection by naming convention!
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.AddScoped<IPostService, PostService>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
-            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IActionHistoryRepository, ActionHistoryRepository>();
+            services.AddScoped<IActionHistoryService, ActionHistoryService>();
+
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+
+            services.AddScoped<IIncrediantRepository, IncrediantRepository>();
+            services.AddScoped<IIncrediantService, IncrediantService>();
+
+            services.AddScoped<IRecipeRepository, RecipeRepository>();
+            services.AddScoped<IRecipeService, RecipeService>();
 
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
@@ -53,6 +66,8 @@ namespace App
                                 "http://localhost:4200") // Angular CLI
                             .AllowAnyHeader()
                             .AllowAnyMethod();
+                        services.AddScoped<IProductRepository, ProductRepository>();
+                        services.AddScoped<IProductService, ProductService>();
                     });
             });
         }
