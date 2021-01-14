@@ -10,7 +10,7 @@ export const routes: Routes = [
     component: ProductComponent
   },
   {
-    path: ':id',
+    path: 'details/:id',
     component: ProductDetailsComponent,
     resolve: {
       product: ProductResolver
