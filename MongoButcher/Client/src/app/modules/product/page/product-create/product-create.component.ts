@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Product} from '../../../../data/product';
+import {Category} from '../../../../data/category';
+import {Resource} from '../../../../data/resource';
 
 @Component({
   selector: 'app-product-create',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCreateComponent implements OnInit {
 
-  constructor() { }
+  resource = new Resource('', new Product(),0);
+  categories = Array<Category>();
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  onCreateNewCategory(): void {
+
+  }
+
+  onClose() {
+
+  }
+
+  onSubmit() {
+
+  }
 }

@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [],
@@ -35,6 +36,7 @@ import {MatSortModule} from '@angular/material/sort';
     MatProgressSpinnerModule,
     MatChipsModule,
     MatSidenavModule,
+    MatGridListModule,
     MatCheckboxModule,
     MatCardModule,
     MatListModule,
@@ -56,6 +58,7 @@ import {MatSortModule} from '@angular/material/sort';
     MatSelectModule,
     MatTabsModule,
     MatInputModule,
+    MatGridListModule,
     MatProgressSpinnerModule,
     MatChipsModule,
     MatSidenavModule,

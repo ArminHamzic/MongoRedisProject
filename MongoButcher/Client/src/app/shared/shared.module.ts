@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { ControlMessagesComponent } from './component/control-messages/control-messages.component';
@@ -17,7 +16,6 @@ import {SpinnerComponent} from './component/spinner/spinner.component';
     ReactiveFormsModule,
     RouterModule,
 
-    NgbModule
   ],
   declarations: [ControlMessagesComponent, SpinnerComponent],
   exports: [
@@ -28,7 +26,6 @@ import {SpinnerComponent} from './component/spinner/spinner.component';
 
     MaterialModule,
 
-    NgbModule,
 
     ControlMessagesComponent,
     SpinnerComponent

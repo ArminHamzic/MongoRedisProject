@@ -1,1 +1,32 @@
-<p>recipe works!</p>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="picture">
+      <th mat-header-cell *matHeaderCellDef> Picture </th>
+      <td mat-cell *matCellDef="let row">
+        <img src="https://altmarkbbq.de/wp-content/uploads/2018/12/IMG_20181228_144750-01-1600x1200-960x720.jpeg" height="70px" width="70px"/>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef class="align-right">Configurations</th>
+      <td mat-cell *matCellDef="let row" class="align-right">
+        <mat-chip-list aria-label="edit selection">
+          <mat-chip color="primary" selected [routerLink]="['/recipes/details', row.id]">Details</mat-chip>
+          <button class="iconBut" mat-icon-button><mat-icon>delete</mat-icon></button>
+        </mat-chip-list>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>

@@ -3,14 +3,12 @@ export class Product {
   name ? = 'Sausage';
   category ? = 'Selling Product';
   picBase64 ?: string;
-  amount ? = 0;
   unit ? = 'Stück';
 
-  constructor(id?: string, name?: string, category?: string, amount?: number, unit?: string) {
+  constructor(id?: string, name?: string, category?: string, unit?: string) {
     this.id = id;
     this.name = name;
     this.category = category;
-    this.amount = amount;
     this.unit = unit;
   }
 }

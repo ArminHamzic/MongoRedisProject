@@ -2,16 +2,17 @@ import { Injectable, } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {Product} from '../../data/product';
-import {ResourceService} from '../../core/http/resource.service';
+
+import {RecipeService} from '../../core/http/recipe.service';
+import {Recipe} from '../../data/recipe';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductResolver implements Resolve<Product> {
+export class RecipeResolver implements Resolve<Recipe> {
   constructor(
-    private productService: ResourceService,
+    private recipeService: RecipeService,
     private router: Router
   ) { }
 
@@ -19,7 +20,7 @@ export class ProductResolver implements Resolve<Product> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.productService.getResourcesById(route.params.id)
+    return this.recipeService.getById(route.params.id)
       .pipe(catchError((err) => this.router.navigateByUrl('/')));
   }
 }

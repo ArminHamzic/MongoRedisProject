@@ -1,16 +1,18 @@
 import {Product} from './product';
-import {Ingredient} from './ingredient';
+import {Resource} from './resource';
 
 export class Recipe {
   id ?: string;
   name ?: string;
+  procedure ?: string;
   output ?: Product;
-  ingredients ?: Array<Ingredient>;
+  resources ?: Array<Resource>;
 
-  constructor(id?: string, name?: string, output?: Product, ingredients?: Array<Ingredient>) {
+  constructor(id?: string, name?: string, procedure?: string, output?: Product, ingredients?: Array<Resource>) {
     this.id = id;
     this.name = name;
+    this.procedure = procedure;
+    this.resources = ingredients;
     this.output = output;
-    this.ingredients = ingredients;
   }
 }
