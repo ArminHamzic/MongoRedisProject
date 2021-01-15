@@ -29,7 +29,7 @@ namespace MongoDBDemoApp.Controllers
         {
             Resource? entity;
             if (string.IsNullOrWhiteSpace(id) ||
-                (entity = await this._service.GetEntityById(new ObjectId(id))) == null)
+                (entity = await this._service.GetEntityById(id)) == null)
             {
                 return BadRequest();
             }

@@ -27,14 +27,13 @@ namespace MongoDBDemoApp.Controllers
         [HttpGet]
         public async Task<ActionResult<ActionHistory>> GetById(string id)
         {
-            ActionHistory? post;
-            if (string.IsNullOrWhiteSpace(id) ||
-                (post = await this._service.GetEntityById(new ObjectId(id))) == null)
+            ActionHistory? entity;
+            if (string.IsNullOrWhiteSpace(id) || (entity = await this._service.GetEntityById(id)) == null)
             {
                 return BadRequest();
             }
 
-            return Ok(post);
+            return Ok(entity);
         }
 
         [HttpGet]

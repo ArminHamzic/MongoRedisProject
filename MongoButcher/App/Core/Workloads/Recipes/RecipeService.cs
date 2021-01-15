@@ -17,7 +17,6 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
         public RecipeService(IDateTimeProvider dateTimeProvider,
             IRecipeRepository repository,
             IResourceRepository resourceRepository,
-            IProductRepository productRepository,
             IActionHistoryRepository historyRepository,
             ILogger<GenericService<Recipe>> logger) : base(dateTimeProvider, repository, logger)
         {
@@ -34,7 +33,7 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
             {
                 throw new Exception("Recipe not found: " + recipe);
             }
-            
+
             recipe.Incrediants.ForEach(async incrediant =>
             {
                 var resource = await _resourceRepository.GetResourceByProductName(incrediant.Product.Name);
@@ -60,9 +59,12 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
             {
                 throw new Exception("Resource of Endproduct not found: " + recipe.Endproduct.Name);
             }
-            
+
             toUpdateResource.Amount += 1;
             
+            await _historyRepository.AddEntity(new ActionHistory
+                {Description = "Execute Recipe: " + recipeName, CreationDate = DateTime.Now});
+
             return await _resourceRepository.UpdateEntity(toUpdateResource);
         }
     }

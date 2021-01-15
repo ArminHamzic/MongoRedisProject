@@ -29,7 +29,7 @@ namespace MongoDBDemoApp.Controllers
         {
             Category? entity;
             if (string.IsNullOrWhiteSpace(id) ||
-                (entity = await this._service.GetEntityById(new ObjectId(id))) == null)
+                (entity = await this._service.GetEntityById(id)) == null)
             {
                 return BadRequest();
             }
@@ -51,9 +51,11 @@ namespace MongoDBDemoApp.Controllers
             // for a real app it would be a good idea to configure model validation to remove long ifs like this
 
             using var transaction = await this._transactionProvider.BeginTransaction();
+            
             var entity = await this._service.AddEntity(newEntity);
             await transaction.CommitAsync();
-            return CreatedAtAction(nameof(GetById), new {id = entity.Id.ToString()}, entity);
+            
+            return Ok(entity);
         }
 
         [HttpPut]
@@ -62,9 +64,11 @@ namespace MongoDBDemoApp.Controllers
             // for a real app it would be a good idea to configure model validation to remove long ifs like this
 
             using var transaction = await this._transactionProvider.BeginTransaction();
+            
             var entity = await this._service.UpdateEntity(update);
             await transaction.CommitAsync();
-            return CreatedAtAction(nameof(GetById), new {id = entity.Id.ToString()}, entity);
+            
+            return Ok(entity);
         }
 
         [HttpDelete]

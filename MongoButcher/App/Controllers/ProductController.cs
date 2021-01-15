@@ -20,7 +20,7 @@ namespace MongoDBDemoApp.Controllers
         private readonly ICategoryService _categoryService;
         private readonly ITransactionProvider _transactionProvider;
 
-        public ProductController(ITransactionProvider transactionProvider, IMapper mapper, 
+        public ProductController(ITransactionProvider transactionProvider, IMapper mapper,
             IProductService service,
             ICategoryService categoryService,
             IResourceService resourceService)
@@ -37,7 +37,7 @@ namespace MongoDBDemoApp.Controllers
         {
             Product? post;
             if (string.IsNullOrWhiteSpace(id) ||
-                (post = await this._service.GetEntityById(new ObjectId(id))) == null)
+                (post = await this._service.GetEntityById(id)) == null)
             {
                 return BadRequest();
             }
@@ -67,14 +67,14 @@ namespace MongoDBDemoApp.Controllers
 
             var category = await _categoryService.GetOrCreateCategoryByName(newProduct.Category);
             newProduct.Category = category;
-            
+
             var entity = await this._service.AddEntity(newProduct);
             var newResource = new Resource {Amount = 0, Product = entity};
 
             await _resourceService.AddEntity(newResource);
-            
+
             await transaction.CommitAsync();
-            
+
             return CreatedAtAction(nameof(GetById), new {id = entity.Id.ToString()}, entity);
         }
 

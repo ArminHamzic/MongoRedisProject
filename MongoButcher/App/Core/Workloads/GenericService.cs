@@ -23,6 +23,10 @@ namespace MongoDBDemoApp.Core.Workloads
         }
 
         public Task<IEnumerable<T>> GetAll() => Repository.GetAll();
+        public Task<T?> GetEntityById(string id)
+        {
+            return Repository.GetEntityByIdAsync(id);
+        }
 
         public Task<T?> GetEntityById(ObjectId id)
         {

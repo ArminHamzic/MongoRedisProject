@@ -15,6 +15,7 @@ namespace MongoDBDemoApp.Core.Workloads
         IClientSessionHandle Session { get; }
         UpdateDefinitionBuilder<T> UpdateDefBuilder { get; }
         Task<IEnumerable<T>> GetAll();
+        Task<T?> GetEntityByIdAsync(string id);
         Task<T?> GetEntityByIdAsync(ObjectId id);
         Task<T> AddEntity(T entity);
         Task<T> UpdateEntity(T entity);

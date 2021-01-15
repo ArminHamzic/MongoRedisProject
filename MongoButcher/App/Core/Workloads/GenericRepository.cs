@@ -25,6 +25,11 @@ namespace MongoDBDemoApp.Core.Workloads
         {
             return await Query().ToListAsync();
         }
+        
+        public async Task<T?> GetEntityByIdAsync(string id)
+        {
+            return await Query().FirstOrDefaultAsync(entity => entity.Id == id);
+        }
 
         public async Task<T?> GetEntityByIdAsync(ObjectId id)
         {
