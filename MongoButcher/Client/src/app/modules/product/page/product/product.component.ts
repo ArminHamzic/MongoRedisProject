@@ -3,7 +3,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {Product} from '../../../../data/product';
-import {ProductService} from '../../../../core/http/product.service';
+import {ResourceService} from '../../../../core/http/resource.service';
 
 @Component({
   selector: 'app-product',
@@ -18,13 +18,13 @@ export class ProductComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private productService: ProductService) {
+  constructor(private resourceService: ResourceService) {
     const test = new Product();
     test.id = '12';
     test.name = 'Salz';
     test.category = 'sonstig';
-    this.productService.$products.subscribe((products) => {
-      this.dataSource = new MatTableDataSource(products);
+    this.resourceService.$resources.subscribe((resources) => {
+      this.dataSource = new MatTableDataSource(resources);
     });
   }
 
@@ -43,6 +43,6 @@ export class ProductComponent implements AfterViewInit {
   }
 
   applyCategoryFilter(filter?: string): void {
-    this.productService.loadProducts(filter);
+    this.resourceService.loadResources(filter);
   }
 }
