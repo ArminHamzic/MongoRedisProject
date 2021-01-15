@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Recipe} from '../../data/recipe';
+import {GenericService} from './generic/generic-service';
 
 const recipeData = [
   new Recipe('1', 'Salt'),
@@ -16,19 +17,12 @@ const recipeData = [
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeService {
-
-  baseUrl: string;
+export class RecipeService extends GenericService<Recipe, string> {
 
   $recipes = new BehaviorSubject<Recipe[]>(recipeData);
 
-  constructor(private httpClient: HttpClient) {
-    this.baseUrl = environment.api_url;
-  }
-
-  getRecipeById(id: string): Observable<Recipe | any> {
-    // return this.httpClient.get<Recipe>(`${this.baseUrl}/api/recipe/${id}`);
-    return of(recipeData.find(r => r.id === id));
+  constructor(protected httpClient: HttpClient) {
+    super(httpClient, `${environment.api_url}/recipe`);
   }
 
   load(): void {
