@@ -28,7 +28,7 @@ namespace MongoDBDemoApp.Core.Workloads
 
         public async Task<T?> GetEntityByIdAsync(ObjectId id)
         {
-            return await Query().FirstOrDefaultAsync(entity => entity.Id == id);
+            return await Query().FirstOrDefaultAsync(entity => entity.BaseId == id);
         }
 
         public async Task<T> AddEntity(T entity)
@@ -38,7 +38,7 @@ namespace MongoDBDemoApp.Core.Workloads
 
         public async Task<T> UpdateEntity(T entity)
         {
-            await ReplaceOneAsync(entity.Id, entity);
+            await ReplaceOneAsync(entity.BaseId, entity);
             return await Query().FirstOrDefaultAsync(item => item.Id == entity.Id);
         }
 

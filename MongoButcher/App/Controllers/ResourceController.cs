@@ -4,20 +4,20 @@ using AutoMapper;
 using LeoMongo.Transaction;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using MongoDBDemoApp.Core.Workloads.Incredients;
+using MongoDBDemoApp.Core.Workloads.Resources;
 
 namespace MongoDBDemoApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IncrediantsController : ControllerBase
+    public class ResourceController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IIncrediantService _service;
+        private readonly IResourceService _service;
         private readonly ITransactionProvider _transactionProvider;
 
-        public IncrediantsController(ITransactionProvider transactionProvider, IMapper mapper,
-            IIncrediantService service)
+        public ResourceController(ITransactionProvider transactionProvider, IMapper mapper,
+            IResourceService service)
         {
             _transactionProvider = transactionProvider;
             _mapper = mapper;
@@ -25,9 +25,9 @@ namespace MongoDBDemoApp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Incrediant>> GetById(string id)
+        public async Task<ActionResult<Resource>> GetById(string id)
         {
-            Incrediant? entity;
+            Resource? entity;
             if (string.IsNullOrWhiteSpace(id) ||
                 (entity = await this._service.GetEntityById(new ObjectId(id))) == null)
             {
@@ -39,32 +39,43 @@ namespace MongoDBDemoApp.Controllers
 
         [HttpGet]
         [Route("all")]
-        public async Task<ActionResult<IReadOnlyCollection<Incrediant>>> GetAll()
+        public async Task<ActionResult<IReadOnlyCollection<Resource>>> GetAll()
         {
-            IEnumerable<Incrediant> posts = await this._service.GetAll();
+            IEnumerable<Resource> posts = await this._service.GetAll();
             return Ok(posts);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Incrediant newEntity)
+        public async Task<IActionResult> Create(Resource newEntity)
         {
             // for a real app it would be a good idea to configure model validation to remove long ifs like this
-
             using var transaction = await this._transactionProvider.BeginTransaction();
+            
             var entity = await this._service.AddEntity(newEntity);
             await transaction.CommitAsync();
             return CreatedAtAction(nameof(GetById), new {id = entity.Id.ToString()}, entity);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Incrediant update)
+        public async Task<IActionResult> Update(Resource update)
         {
             // for a real app it would be a good idea to configure model validation to remove long ifs like this
 
             using var transaction = await this._transactionProvider.BeginTransaction();
-            var entity = await this._service.UpdateEntity(update);
+
+            var resource = await _service.GetResourceByProductName(update.Product.Name);
+
+            if (resource == null)
+            {
+                return NotFound();
+            }
+            
+            resource.Amount += update.Amount;
+            resource = await this._service.UpdateEntity(resource);
+            
             await transaction.CommitAsync();
-            return CreatedAtAction(nameof(GetById), new {id = entity.Id.ToString()}, entity);
+            
+            return Ok(resource);
         }
 
         [HttpDelete]

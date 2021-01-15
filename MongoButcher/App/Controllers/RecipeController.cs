@@ -45,6 +45,13 @@ namespace MongoDBDemoApp.Controllers
             return Ok(entities);
         }
 
+        [HttpGet]
+        [Route("execute/{name}")]
+        public async Task<ActionResult> ExecuteRecipe(string name)
+        {
+            return Ok(await _service.ExecuteRecipe(name));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(Recipe newEntity)
         {

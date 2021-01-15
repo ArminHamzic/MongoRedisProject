@@ -4,7 +4,9 @@ using AutoMapper;
 using LeoMongo.Transaction;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using MongoDBDemoApp.Core.Workloads.Categories;
 using MongoDBDemoApp.Core.Workloads.Products;
+using MongoDBDemoApp.Core.Workloads.Resources;
 
 namespace MongoDBDemoApp.Controllers
 {
@@ -14,13 +16,20 @@ namespace MongoDBDemoApp.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IProductService _service;
+        private readonly IResourceService _resourceService;
+        private readonly ICategoryService _categoryService;
         private readonly ITransactionProvider _transactionProvider;
-        
-        public ProductController(ITransactionProvider transactionProvider, IMapper mapper, IProductService service)
+
+        public ProductController(ITransactionProvider transactionProvider, IMapper mapper, 
+            IProductService service,
+            ICategoryService categoryService,
+            IResourceService resourceService)
         {
             _transactionProvider = transactionProvider;
             _mapper = mapper;
             _service = service;
+            _resourceService = resourceService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -35,7 +44,7 @@ namespace MongoDBDemoApp.Controllers
 
             return Ok(post);
         }
-        
+
         [HttpGet]
         [Route("all")]
         public async Task<ActionResult<IReadOnlyCollection<Product>>> GetAll()
@@ -43,31 +52,38 @@ namespace MongoDBDemoApp.Controllers
             IEnumerable<Product> posts = await this._service.GetAll();
             return Ok(posts);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Create(Product newProduct)
         {
             // for a real app it would be a good idea to configure model validation to remove long ifs like this
             if (string.IsNullOrWhiteSpace(newProduct.Name)
-                || string.IsNullOrWhiteSpace(newProduct.Picture)
-                || double.IsNaN(newProduct.Weight))
+                || string.IsNullOrWhiteSpace(newProduct.Picture))
             {
                 return BadRequest();
             }
 
             using var transaction = await this._transactionProvider.BeginTransaction();
+
+            var category = await _categoryService.GetOrCreateCategoryByName(newProduct.Category);
+            newProduct.Category = category;
+            
             var entity = await this._service.AddEntity(newProduct);
+            var newResource = new Resource {Amount = 0, Product = entity};
+
+            await _resourceService.AddEntity(newResource);
+            
             await transaction.CommitAsync();
+            
             return CreatedAtAction(nameof(GetById), new {id = entity.Id.ToString()}, entity);
         }
-        
+
         [HttpPut]
         public async Task<IActionResult> Update(Product update)
         {
             // for a real app it would be a good idea to configure model validation to remove long ifs like this
             if (string.IsNullOrWhiteSpace(update.Name)
-                || string.IsNullOrWhiteSpace(update.Picture)
-                || double.IsNaN(update.Weight))
+                || string.IsNullOrWhiteSpace(update.Picture))
             {
                 return BadRequest();
             }
@@ -77,7 +93,7 @@ namespace MongoDBDemoApp.Controllers
             await transaction.CommitAsync();
             return CreatedAtAction(nameof(GetById), new {id = entity.Id.ToString()}, entity);
         }
-        
+
         [HttpDelete]
         public async Task<IActionResult> Delete(string id)
         {

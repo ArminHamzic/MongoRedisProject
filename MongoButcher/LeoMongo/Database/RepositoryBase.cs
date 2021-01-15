@@ -58,8 +58,8 @@ namespace LeoMongo.Database
             return QueryIncludeDetail(detailRepository, foreignKeySelector, (master, details) =>
                 new MasterDetails<ObjectId, ObjectId>
                 {
-                    Master = master.Id,
-                    Details = details.Select(d => d.Id)
+                    Master = master.BaseId,
+                    Details = details.Select(d => d.BaseId)
                 }, masterFilter);
         }
 
@@ -86,7 +86,7 @@ namespace LeoMongo.Database
             }
 
             IMongoQueryable<MasterDetails<TMasterField, TDetailField>> joinedQuery = query
-                .GroupJoin(GetCollection<TDetail>(detailRepository.CollectionName), m => m.Id,
+                .GroupJoin(GetCollection<TDetail>(detailRepository.CollectionName), m => m.BaseId,
                     foreignKeySelector, resultSelector);
             return joinedQuery;
         }
@@ -185,6 +185,6 @@ namespace LeoMongo.Database
         public IMongoCollection<TCollection> GetCollection<TCollection>(string collectionName) =>
             this._databaseProvider.Database.GetCollection<TCollection>(collectionName);
 
-        private static Expression<Func<T, bool>> GetIdFilter(ObjectId id) => t => t.Id == id;
+        private static Expression<Func<T, bool>> GetIdFilter(ObjectId id) => t => t.BaseId == id;
     }
 }

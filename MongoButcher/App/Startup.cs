@@ -11,9 +11,9 @@ using Microsoft.Extensions.Hosting;
 using MongoDBDemoApp.Core.Util;
 using MongoDBDemoApp.Core.Workloads.ActionHistories;
 using MongoDBDemoApp.Core.Workloads.Categories;
-using MongoDBDemoApp.Core.Workloads.Incredients;
 using MongoDBDemoApp.Core.Workloads.Products;
 using MongoDBDemoApp.Core.Workloads.Recipes;
+using MongoDBDemoApp.Core.Workloads.Resources;
 
 namespace App
 {
@@ -46,14 +46,14 @@ namespace App
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
 
-            services.AddScoped<IIncrediantRepository, IncrediantRepository>();
-            services.AddScoped<IIncrediantService, IncrediantService>();
+            services.AddScoped<IResourceRepository, ResourceRepository>();
+            services.AddScoped<IResourceService, ResourceService>();
 
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IRecipeService, RecipeService>();
 
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
-
+            
             services.AddControllers();
 
             services.AddSwaggerGen();
@@ -82,6 +82,7 @@ namespace App
             }
 
             //app.UseHttpsRedirection();
+            
 
             app.UseMiddleware<ErrorLoggingMiddleware>();
 
