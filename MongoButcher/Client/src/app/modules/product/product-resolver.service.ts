@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@a
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {Product} from '../../data/product';
-import {ProductService} from '../../core/http/product.service';
+import {ResourceService} from '../../core/http/resource.service';
 
 
 @Injectable({
@@ -11,7 +11,7 @@ import {ProductService} from '../../core/http/product.service';
 })
 export class ProductResolver implements Resolve<Product> {
   constructor(
-    private productService: ProductService,
+    private productService: ResourceService,
     private router: Router
   ) { }
 
@@ -19,7 +19,7 @@ export class ProductResolver implements Resolve<Product> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.productService.getProductById(route.params.id)
+    return this.productService.getResourcesById(route.params.id)
       .pipe(catchError((err) => this.router.navigateByUrl('/')));
   }
 }

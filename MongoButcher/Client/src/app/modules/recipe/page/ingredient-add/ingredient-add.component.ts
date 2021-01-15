@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Resource} from '../../../../data/resource';
 import {MatDialogRef} from '@angular/material/dialog';
 import {RecipeAddComponent} from '../recipe-add/recipe-add.component';
+import {Product} from '../../../../data/product';
+import {ProductService} from '../../../../core/http/product.service';
 
 @Component({
   selector: 'app-ingredient-add',
@@ -11,9 +13,14 @@ import {RecipeAddComponent} from '../recipe-add/recipe-add.component';
 export class IngredientAddComponent implements OnInit {
 
   resource: Resource;
+  products: Product[] = [];
 
-  constructor(public dialogRef: MatDialogRef<RecipeAddComponent>) {
+  constructor(public dialogRef: MatDialogRef<RecipeAddComponent>,
+              public productService: ProductService) {
     this.resource = new Resource();
+    this.productService.$products.subscribe((prod) => {
+      this.products = prod;
+    });
   }
 
   ngOnInit(): void {

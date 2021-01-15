@@ -4,9 +4,10 @@ import {MatTableDataSource} from '@angular/material/table';
 import {Product} from '../../../../data/product';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {MatDialog} from '@angular/material/dialog';
+import {IngredientAddComponent} from '../ingredient-add/ingredient-add.component';
+import {ResourceService} from '../../../../core/http/resource.service';
 import {ProductService} from '../../../../core/http/product.service';
-import {MatDialog} from "@angular/material/dialog";
-import {IngredientAddComponent} from "../ingredient-add/ingredient-add.component";
 
 @Component({
   selector: 'app-recipe-add',
@@ -15,19 +16,19 @@ import {IngredientAddComponent} from "../ingredient-add/ingredient-add.component
 })
 export class RecipeAddComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'category', 'amount', 'details', 'addResource', 'search'];
+  displayedColumns: string[] = ['name', 'category', 'unit', 'details', 'addResource', 'search'];
   dataSource!: MatTableDataSource<Product>;
   recipe: Recipe;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private productService: ProductService,
+  constructor(private resourceService: ResourceService,
+              private productService: ProductService,
               public dialog: MatDialog) {
     this.recipe = new Recipe();
-
-    this.productService.$products.subscribe((products) => {
-      this.dataSource = new MatTableDataSource(products);
+    this.resourceService.$resources.subscribe((resources) => {
+      this.dataSource = new MatTableDataSource(resources);
     });
   }
 
@@ -46,7 +47,7 @@ export class RecipeAddComponent implements OnInit {
   }
 
   applyCategoryFilter(filter?: string): void {
-    this.productService.loadProducts(filter);
+    this.resourceService.loadResources(filter);
   }
 
   onAddingResource(): void {

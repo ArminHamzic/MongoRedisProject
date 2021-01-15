@@ -7,8 +7,11 @@
       <div>
         <div class="vertical-center">
           <mat-form-field class="field">
-            <input id="product" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="" [(ngModel)]="resource.product">
-            <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>
+            <mat-label>Produkt</mat-label>
+            <mat-select id="customer" [ngModelOptions] ="{standalone: true}" required [(ngModel)]="resource.product">
+              <mat-option *ngFor="let prod of products" [value]="prod">{{prod.name}}</mat-option>
+            </mat-select>
+            <mat-error>Diesem Feld muss etwas zugewiesen werden!</mat-error>
           </mat-form-field>
         </div>
         <div class="vertical-center">
