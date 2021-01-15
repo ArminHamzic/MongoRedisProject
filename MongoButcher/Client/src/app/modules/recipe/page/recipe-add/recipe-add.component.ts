@@ -5,6 +5,8 @@ import {Product} from '../../../../data/product';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {ProductService} from '../../../../core/http/product.service';
+import {MatDialog} from "@angular/material/dialog";
+import {IngredientAddComponent} from "../ingredient-add/ingredient-add.component";
 
 @Component({
   selector: 'app-recipe-add',
@@ -13,21 +15,21 @@ import {ProductService} from '../../../../core/http/product.service';
 })
 export class RecipeAddComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'category', 'amount', 'details', 'search'];
+  displayedColumns: string[] = ['name', 'category', 'amount', 'details', 'addResource', 'search'];
   dataSource!: MatTableDataSource<Product>;
+  recipe: Recipe;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+              public dialog: MatDialog) {
     this.recipe = new Recipe();
 
     this.productService.$products.subscribe((products) => {
       this.dataSource = new MatTableDataSource(products);
     });
   }
-
-  recipe: Recipe;
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -47,4 +49,7 @@ export class RecipeAddComponent implements OnInit {
     this.productService.loadProducts(filter);
   }
 
+  onAddingResource(): void {
+    this.dialog.open(IngredientAddComponent, {autoFocus: true, width: '20%', disableClose: true});
+  }
 }
