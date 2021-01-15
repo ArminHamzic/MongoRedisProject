@@ -1,1 +1,42 @@
-<p>recipe-detail works!</p>
+<form class="formstyle" action="" #form>
+  <h2 class="field">New Recipe</h2>
+  <div>
+    {{recipe.name}}
+  </div>
+
+  <div class="mat-elevation-z8" style="width: 95%">
+    <table mat-table [dataSource]="dataSource" matSort width="100%">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef width="10%"> Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"> Category </th>
+        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="unit">
+        <th mat-header-cell *matHeaderCellDef width="10%"> Current Stock </th>
+        <td mat-cell *matCellDef="let row"> {{row.amount}} {{row.unit}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef width="10%">Configurations</th>
+        <td mat-cell *matCellDef="let row" class="align-right">
+          <mat-chip-list aria-label="edit selection">
+            <mat-chip color="accent" selected>Edit</mat-chip>
+            <button class="iconBut" mat-icon-button><mat-icon>delete</mat-icon></button>
+          </mat-chip-list>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</form>
+
+
