@@ -4,7 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {Product} from '../../../../data/product';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {ProductService} from '../../../../core/http/product.service';
+import {ResourceService} from '../../../../core/http/resource.service';
 
 @Component({
   selector: 'app-recipe-add',
@@ -19,11 +19,11 @@ export class RecipeAddComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private productService: ProductService) {
+  constructor(private resourceService: ResourceService) {
     this.recipe = new Recipe();
 
-    this.productService.$products.subscribe((products) => {
-      this.dataSource = new MatTableDataSource(products);
+    this.resourceService.$resources.subscribe((resources) => {
+      this.dataSource = new MatTableDataSource(resources);
     });
   }
 
@@ -44,7 +44,7 @@ export class RecipeAddComponent implements OnInit {
   }
 
   applyCategoryFilter(filter?: string): void {
-    this.productService.loadProducts(filter);
+    this.resourceService.loadResources(filter);
   }
 
 }
