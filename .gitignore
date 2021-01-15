@@ -7,6 +7,29 @@
 # BlueJ files
 *.ctxt
 
+# Visual Studio Code
+.vscode
+.factorypath
+
+# OSX
+.DS_Store
+
+# Vim
+*.swp
+*.swo
+
+# patch
+*.orig
+*.rej
+
+### Angular ###
+## Angular ##
+# compiled output
+dist/
+tmp/
+app/**/*.js
+app/**/*.js.map
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
