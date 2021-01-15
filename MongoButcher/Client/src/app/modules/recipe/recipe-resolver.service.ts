@@ -20,7 +20,7 @@ export class RecipeResolver implements Resolve<Recipe> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.recipeService.getRecipeById(route.params.id)
+    return this.recipeService.getById(route.params.id)
       .pipe(catchError((err) => this.router.navigateByUrl('/')));
   }
 }

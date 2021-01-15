@@ -8,7 +8,7 @@
   </div>
   <div>
     <mat-form-field  class="field" style="width: 95%">
-      <textarea matInput placeholder = "Procedure" rows="8" style="background-color:whitesmoke;"></textarea>
+      <textarea matInput placeholder = "Procedure" rows="8" style="background-color:whitesmoke;" [ngModelOptions] ="{standalone: true}" [(ngModel)]="recipe.procedure"></textarea>
     </mat-form-field>
   </div>
 </form>

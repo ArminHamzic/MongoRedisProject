@@ -1,15 +1,13 @@
 import {Product} from './product';
 
-export class Ingredient {
+export class Resource {
   id ?: string;
   product ?: Product;
-  unit ?: string;
   amount ?: number;
 
-  constructor(id?: string, product?: Product, unit?: string, amount ?: number) {
+  constructor(id?: string, product?: Product, amount ?: number) {
     this.id = id;
     this.product = product;
-    this.unit = unit;
     this.amount = amount;
   }
 }
