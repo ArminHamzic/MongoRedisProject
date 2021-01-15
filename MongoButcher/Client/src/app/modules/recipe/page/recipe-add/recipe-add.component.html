@@ -17,24 +17,23 @@
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef width="10%"> Name </th>
-        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.product.name}} </td>
       </ng-container>
 
       <ng-container matColumnDef="category">
         <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"> Category </th>
-        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.product.category}} </td>
       </ng-container>
 
       <ng-container matColumnDef="unit">
-        <th mat-header-cell *matHeaderCellDef width="10%"> Current Stock </th>
-        <td mat-cell *matCellDef="let row"> {{row.amount}} {{row.unit}} </td>
+        <th mat-header-cell *matHeaderCellDef width="10%"> Amount </th>
+        <td mat-cell *matCellDef="let row"> {{row.amount}} {{row.product.unit}} </td>
       </ng-container>
 
       <ng-container matColumnDef="details">
         <th mat-header-cell *matHeaderCellDef width="10%">Configurations</th>
         <td mat-cell *matCellDef="let row" class="align-right">
           <mat-chip-list aria-label="edit selection">
-            <mat-chip color="accent" selected>Edit</mat-chip>
             <button class="iconBut" mat-icon-button><mat-icon>delete</mat-icon></button>
           </mat-chip-list>
         </td>
