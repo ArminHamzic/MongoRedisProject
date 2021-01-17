@@ -1,10 +1,8 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MongoDBDemoApp.Core.Util;
 using MongoDBDemoApp.Core.Workloads.ActionHistories;
-using MongoDBDemoApp.Core.Workloads.Products;
 using MongoDBDemoApp.Core.Workloads.Resources;
 
 namespace MongoDBDemoApp.Core.Workloads.Recipes
@@ -29,14 +27,14 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
         public async Task<Resource> ExecuteRecipe(string recipeName)
         {
             var recipe = await _recipeRepository.GetRecipeByName(recipeName);
-            ActionHistory history = new ActionHistory{Description = "Ein Fehler", CreationDate = DateTime.Now};
+            ActionHistory history = new ActionHistory {Description = "Ein Fehler", CreationDate = DateTime.Now};
 
             if (recipe == null)
             {
                 throw new Exception("Recipe not found: " + recipe);
             }
-
-            recipe.Incrediants.ForEach(async incrediant =>
+            
+            foreach (var incrediant in recipe.Incrediants)
             {
                 var resource = await _resourceRepository.GetResourceByProductName(incrediant.ProductName);
 
@@ -56,7 +54,7 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
                 resource.ActionHistories.Add(history);
 
                 await _resourceRepository.UpdateEntity(resource);
-            });
+            }
 
             var toUpdateResource = await _resourceRepository.GetResourceByProductName(recipe.Endproduct.Name);
 
@@ -69,7 +67,7 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
 
 
             await _historyRepository.AddEntity(history);
-            
+
 
             return await _resourceRepository.UpdateEntity(toUpdateResource);
         }
