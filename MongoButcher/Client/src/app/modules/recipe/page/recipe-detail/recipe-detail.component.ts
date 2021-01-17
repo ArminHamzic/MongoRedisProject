@@ -1,15 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Recipe} from '../../../../data/recipe';
 import {MatTableDataSource} from '@angular/material/table';
-import {Product} from '../../../../data/product';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatDialog} from '@angular/material/dialog';
 import {ResourceService} from '../../../../core/http/resource.service';
-import {ProductService} from '../../../../core/http/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {map} from "rxjs/operators";
-import {Observable} from "rxjs";
+import {map} from 'rxjs/operators';
 import {Resource} from '../../../../data/resource';
 
 @Component({
