@@ -28,4 +28,9 @@ export class RecipeComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
+
+  onDelete(id: string): void {
+    this.recipeService.delete(id);
+    this.recipeService.load();
+  }
 }

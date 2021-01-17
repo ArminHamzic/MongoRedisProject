@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Recipe} from '../../../../data/recipe';
 import {MatTableDataSource} from '@angular/material/table';
-import {Product} from '../../../../data/product';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatDialog} from '@angular/material/dialog';
 import {ResourceService} from '../../../../core/http/resource.service';
-import {ProductService} from '../../../../core/http/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {map} from "rxjs/operators";
-import {Observable} from "rxjs";
+import {map} from 'rxjs/operators';
 import {Resource} from '../../../../data/resource';
+import {IngredientAddComponent} from "../ingredient-add/ingredient-add.component";
+import {RecipeProduceAmountComponent} from "../recipe-produce-amount/recipe-produce-amount.component";
+import {RecipeService} from '../../../../core/http/recipe.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -28,6 +28,7 @@ export class RecipeDetailComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private resourceService: ResourceService,
+              private recipeService: RecipeService,
               private router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog) {
@@ -46,4 +47,15 @@ export class RecipeDetailComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+
+  onProduce(): void {
+    const dialogRef = this.dialog.open(RecipeProduceAmountComponent, {autoFocus: true, width: '20%', disableClose: true});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result.data);
+      for (let i = 0; i < result.data; i++){
+        this.recipeService.produce(this.recipe.name);
+        this.resourceService.loadResources();
+      }
+    });
+  }
 }
