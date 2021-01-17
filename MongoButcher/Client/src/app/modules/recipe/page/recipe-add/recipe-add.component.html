@@ -22,7 +22,7 @@
 
       <ng-container matColumnDef="category">
         <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"> Category </th>
-        <td mat-cell *matCellDef="let row"> {{row.product.category}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.product.category.name}} </td>
       </ng-container>
 
       <ng-container matColumnDef="unit">
@@ -59,6 +59,10 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
+  </div>
+  <div class="buttonContent">
+    <button class="buttonSelf" mat-raised-button color="warn" type="submit" (click)="onClose()">Zurück</button>
+    <button class="buttonSelf" mat-raised-button color="primary" type="submit" [disabled]="!form.checkValidity()" (click)="onSubmit()">Speichern</button>
   </div>
 </form>
 
