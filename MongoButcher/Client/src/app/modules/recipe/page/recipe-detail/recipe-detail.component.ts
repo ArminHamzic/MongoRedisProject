@@ -8,6 +8,8 @@ import {ResourceService} from '../../../../core/http/resource.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {Resource} from '../../../../data/resource';
+import {IngredientAddComponent} from "../ingredient-add/ingredient-add.component";
+import {RecipeProduceAmountComponent} from "../recipe-produce-amount/recipe-produce-amount.component";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -43,4 +45,16 @@ export class RecipeDetailComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+
+  onProduce(): void {
+    const dialogRef = this.dialog.open(RecipeProduceAmountComponent, {autoFocus: true, width: '20%', disableClose: true});
+    /*
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result.data);
+      this.recipe.incrediants?.push(result.data);
+      console.log(this.recipe.incrediants);
+      this.dataSource = new MatTableDataSource(this.recipe.incrediants);
+    });
+     */
+  }
 }

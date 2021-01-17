@@ -1,0 +1,21 @@
+<form action="" #form>
+  <mat-grid-list cols="1" rowHeight="400px">
+    <div class="vertical-center" style="margin-top: 3%">
+      <h2>Add Resource</h2>
+    </div>
+    <mat-grid-tile>
+      <div>
+        <div class="vertical-center">
+          <mat-form-field class="field">
+            <input id="amount" type="number" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Amount" [(ngModel)]="amount">
+            <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="buttonContent">
+          <button class="buttonSelf" mat-raised-button color="warn" type="submit" (click)="onClose()">Zurück</button>
+          <button class="buttonSelf" mat-raised-button color="primary" type="submit" [disabled]="!form.checkValidity()" (click)="onSubmit()">Speichern</button>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

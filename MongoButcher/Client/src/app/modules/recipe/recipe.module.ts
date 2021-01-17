@@ -5,9 +5,10 @@ import {RecipeRouting} from './recipe.routing';
 import { RecipeDetailComponent } from './page/recipe-detail/recipe-detail.component';
 import { RecipeAddComponent } from './page/recipe-add/recipe-add.component';
 import { IngredientAddComponent } from './page/ingredient-add/ingredient-add.component';
+import { RecipeProduceAmountComponent } from './page/recipe-produce-amount/recipe-produce-amount.component';
 
 @NgModule({
-  declarations: [RecipeComponent, RecipeDetailComponent, RecipeAddComponent, IngredientAddComponent],
+  declarations: [RecipeComponent, RecipeDetailComponent, RecipeAddComponent, IngredientAddComponent, RecipeProduceAmountComponent],
   imports: [SharedModule, RecipeRouting],
   exports: [],
   providers: [],

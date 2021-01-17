@@ -1,0 +1,21 @@
+.field {
+  margin: 10px;
+  width: 250px;
+}
+
+.buttonContent {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 30px;
+}
+
+.buttonSelf {
+  margin: 10px;
+  width: 100%;
+  transition: transform 0.2s;
+}
+
+.buttonSelf:hover {
+  transform: scale(1.1);
+}
