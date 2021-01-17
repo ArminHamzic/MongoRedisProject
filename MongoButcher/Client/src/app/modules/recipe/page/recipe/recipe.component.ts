@@ -17,6 +17,7 @@ export class RecipeComponent implements AfterViewInit {
   constructor(private recipeService: RecipeService) {
     this.recipeService.$recipes.subscribe((recipes) => {
       this.dataSource = new MatTableDataSource(recipes);
+      console.log(recipes);
     });
     this.recipeService.load();
   }

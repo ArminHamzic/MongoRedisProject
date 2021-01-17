@@ -40,7 +40,7 @@ export class RecipeDetailComponent implements OnInit {
       .pipe(map(data => data.recipe))
       .subscribe((recipe: Recipe) => {
         this.recipe = recipe;
-        console.log(recipe.incrediants);
+        console.log(recipe);
         this.dataSource = new MatTableDataSource(this.recipe.incrediants);
       });
     this.dataSource.paginator = this.paginator;

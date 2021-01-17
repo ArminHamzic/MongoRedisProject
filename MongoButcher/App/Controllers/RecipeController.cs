@@ -49,7 +49,15 @@ namespace MongoDBDemoApp.Controllers
                 Name = entity.Name,
                 Procedure = entity.Procedure,
                 Endproduct = entity.Endproduct,
-            });
+                Incrediants = entity.Incrediants.Select(async i => new ResourceDTO
+                    {
+                        Product = await _productService.GetByName(i.ProductName),
+                        Amount = i.Amount
+                    })
+                    .Select(task => task.Result)
+                    .ToList()
+                
+        });
         }
 
         [HttpGet]
