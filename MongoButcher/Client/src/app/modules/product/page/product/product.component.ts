@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -10,23 +10,23 @@ import {Resource} from '../../../../data/resource';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent implements AfterViewInit {
+export class ProductComponent implements OnInit {
 
   displayedColumns: string[] = ['picture', 'name', 'category', 'amount', 'details'];
   dataSource!: MatTableDataSource<Resource>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  amount: number = 0;
+  amount = 0;
 
   constructor(private resourceService: ResourceService) {
-    this.resourceService.$resources.subscribe((resources) => {
-      this.dataSource = new MatTableDataSource(resources);
-    });
-    this.resourceService.loadResources();
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    this.resourceService.$resources.subscribe((res) => {
+      this.dataSource = new MatTableDataSource(res);
+    });
+    this.resourceService.loadResources();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -34,14 +34,6 @@ export class ProductComponent implements AfterViewInit {
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  applyCategoryFilter(filter?: string): void {
-    this.resourceService.loadResources(filter);
   }
 
   addAmount(row: Resource): void {

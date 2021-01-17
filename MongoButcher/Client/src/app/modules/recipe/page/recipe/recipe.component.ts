@@ -11,25 +11,26 @@ import {RecipeService} from '../../../../core/http/recipe.service';
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.scss']
 })
-export class RecipeComponent implements AfterViewInit {
+export class RecipeComponent implements OnInit {
 
   constructor(private recipeService: RecipeService) {
-    this.recipeService.$recipes.subscribe((recipes) => {
-      this.dataSource = new MatTableDataSource(recipes);
-      console.log(recipes);
-    });
-    this.recipeService.load();
   }
 
   displayedColumns: string[] = ['picture', 'name', 'details'];
   dataSource!: MatTableDataSource<Recipe>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
 
   onDelete(id: string): void {
     this.recipeService.delete(id).subscribe(r => this.recipeService.load());
+  }
+
+  ngOnInit(): void {
+    this.recipeService.$recipes.subscribe((recipes) => {
+      this.dataSource = new MatTableDataSource(recipes);
+      console.log(recipes);
+    });
+    this.recipeService.load();
+    this.dataSource.paginator = this.paginator;
   }
 }

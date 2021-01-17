@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Product} from '../../../../data/product';
 import {Category} from '../../../../data/category';
-import {Resource} from '../../../../data/resource';
-import {ResourceService} from '../../../../core/http/resource.service';
 import {CategoryService} from '../../../../core/http/category.service';
 import {ProductService} from '../../../../core/http/product.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-create',
@@ -18,7 +17,10 @@ export class ProductCreateComponent implements OnInit {
   category = new Category('Spices', 'Includes all different spices', 'Kg');
 
   categories = Array<Category>();
-  constructor(private productService: ProductService, private categoryService: CategoryService) {
+
+  constructor(private productService: ProductService,
+              private categoryService: CategoryService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -28,18 +30,14 @@ export class ProductCreateComponent implements OnInit {
     this.categoryService.loadCategories();
   }
 
-  onCreateNewCategory(): void {
-
-  }
-
   onClose(): void  {
-
+    this.router.navigate(['/products']);
   }
 
   onSubmit(): void {
     this.product.category = this.category;
     this.productService.save(this.product).subscribe(e => {
-      // console.log(e);
+      this.router.navigate(['/products']);
     });
   }
 }

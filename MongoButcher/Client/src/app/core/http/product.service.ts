@@ -17,15 +17,7 @@ export class ProductService extends GenericService<Product, string> {
     super(httpClient, `${environment.api_url}/product`);
   }
 
-  getProductById(id: string): Observable<Product | any> {
-    return this.httpClient.get<Product>(`${this.base}/${id}`);
-  }
-
   loadProducts(filter?: string): void {
-    if (filter != null) {
-      this.getAll().subscribe(e => this.$products.next(e.filter(p => p.category === filter)));
-    } else {
-      this.getAll().subscribe(e => this.$products.next(e));
-    }
+    this.getAll().subscribe(e => this.$products.next(e));
   }
 }

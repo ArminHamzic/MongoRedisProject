@@ -19,7 +19,7 @@ import {Router} from "@angular/router";
 })
 export class RecipeAddComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'category', 'unit', 'details', 'addResource', 'search'];
+  displayedColumns: string[] = ['name', 'category', 'unit', 'details', 'addResource'];
   dataSource!: MatTableDataSource<Resource>;
   recipe: Recipe;
   products: Product[] = [];
@@ -33,14 +33,14 @@ export class RecipeAddComponent implements OnInit {
               public dialog: MatDialog) {
     this.recipe = new Recipe();
     this.recipe.incrediants = [];
+  }
+
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
     this.productService.$products.subscribe((prod) => {
       this.products = prod;
     });
     this.productService.loadProducts();
-  }
-
-  ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -69,7 +69,6 @@ export class RecipeAddComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.recipe);
     this.recipeService.save(this.recipe).subscribe(r => {
       this.router.navigate(['/recipes']);
     });

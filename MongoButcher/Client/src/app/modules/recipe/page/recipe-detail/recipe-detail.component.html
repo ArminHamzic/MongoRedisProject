@@ -1,10 +1,14 @@
-<form class="formstyle" action="" #form>
-  <h2 class="field">New Recipe</h2>
-  <div>
-    {{recipe.name}}
-  </div>
+<div class="vertical-center">
 
-  <div class="mat-elevation-z8" style="width: 95%">
+</div>
+
+<form class="formstyle" action="" #form>
+  <h2 class="field">Produce Recipe</h2>
+  <h3 style="margin: 20px">
+    Recipename: {{recipe.name}}
+  </h3>
+
+  <div class="mat-elevation-z8" style="width: 80%; margin: 20px">
     <table mat-table [dataSource]="dataSource" matSort width="100%">
 
       <ng-container matColumnDef="name">
@@ -26,7 +30,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-  <button mat-raised-button color="primary" type="submit" [disabled]="!form.checkValidity()" (click)="onProduce()">PRODUCE NOW</button>
+  <button mat-raised-button color="primary" type="submit" style="margin: 20px" class="buttonSelf" [disabled]="!form.checkValidity()" (click)="onProduce()">PRODUCE NOW</button>
 </form>
 
 

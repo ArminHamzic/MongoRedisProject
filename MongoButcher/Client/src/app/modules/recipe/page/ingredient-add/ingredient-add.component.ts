@@ -18,13 +18,13 @@ export class IngredientAddComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<RecipeAddComponent>,
               public productService: ProductService) {
     this.resource = new Resource();
+  }
+
+  ngOnInit(): void {
     this.productService.$products.subscribe((prod) => {
       this.products = prod;
     });
     this.productService.loadProducts();
-  }
-
-  ngOnInit(): void {
   }
 
   onClose(): void {
