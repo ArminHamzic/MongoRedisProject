@@ -28,6 +28,7 @@ export class RecipeAddComponent implements OnInit {
   constructor(private recipeService: RecipeService,
               public dialog: MatDialog) {
     this.recipe = new Recipe();
+    this.recipe.incrediants = [];
     this.dataSource = new MatTableDataSource();
   }
 
@@ -49,6 +50,9 @@ export class RecipeAddComponent implements OnInit {
     const dialogRef = this.dialog.open(IngredientAddComponent, {autoFocus: true, width: '20%', disableClose: true});
     dialogRef.afterClosed().subscribe(result => {
       console.log(result.data);
+      this.recipe.incrediants?.push(result.data);
+      console.log(this.recipe.incrediants);
+      this.dataSource = new MatTableDataSource(this.recipe.incrediants);
     });
   }
 
@@ -58,5 +62,10 @@ export class RecipeAddComponent implements OnInit {
 
   onSubmit(): void {
     this.recipeService.save(this.recipe).subscribe();
+  }
+
+  onDelete(resource: Resource): void {
+    this.recipe.incrediants?.splice(this.recipe.incrediants?.indexOf(resource), 1);
+    this.dataSource = new MatTableDataSource(this.recipe.incrediants);
   }
 }
