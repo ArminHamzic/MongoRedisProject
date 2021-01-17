@@ -12,6 +12,8 @@ import {ResourceService} from '../../../../core/http/resource.service';
 export class ProductCreateComponent implements OnInit {
 
   resource = new Resource('', new Product(), 0);
+
+  category = new Category('Spices', 'Includes all different spices', 'Kg');
   categories = Array<Category>();
   constructor(private resourceService: ResourceService) {
   }
@@ -28,6 +30,7 @@ export class ProductCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.resourceService.save(this.resource);
+    this.resource.product.category = this.category;
+    this.resourceService.save(this.resource).subscribe();
   }
 }
