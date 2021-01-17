@@ -5,7 +5,7 @@ export class Recipe {
   id ?: string;
   name ?: string;
   procedure ?: string;
-  output ?: Product;
+  endProduct ?: Product;
   incrediants ?: Array<Resource>;
 
   constructor(id?: string, name?: string, procedure?: string, output?: Product, ingredients?: Array<Resource>) {
@@ -13,6 +13,6 @@ export class Recipe {
     this.name = name;
     this.procedure = procedure;
     this.incrediants = ingredients;
-    this.output = output;
+    this.endProduct = output;
   }
 }

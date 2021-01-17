@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {GenericService} from './generic/generic-service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {Action} from '../../data/action';
+import {ActionHistory} from '../../data/actionHistory';
 import {BehaviorSubject} from 'rxjs';
 
 
@@ -10,8 +10,8 @@ import {BehaviorSubject} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ActionService extends GenericService<Action, string>{
-  $actions = new BehaviorSubject<Action[]>([]);
+export class ActionService extends GenericService<ActionHistory, string>{
+  $actions = new BehaviorSubject<ActionHistory[]>([]);
   constructor(protected httpClient: HttpClient) {
     super(httpClient, `${environment.api_url}/actionHistory`);
   }

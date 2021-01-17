@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {Action} from '../../../../data/action';
+import {ActionHistory} from '../../../../data/actionHistory';
 import {ActionService} from '../../../../core/http/action.service';
 
 @Component({
@@ -16,10 +16,11 @@ export class ActionHistoryComponent implements AfterViewInit {
     this.actionService.$actions.subscribe((action) => {
       this.dataSource = new MatTableDataSource(action);
     });
+    actionService.load();
   }
 
   displayedColumns: string[] = ['description', 'time'];
-  dataSource!: MatTableDataSource<Action>;
+  dataSource!: MatTableDataSource<ActionHistory>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

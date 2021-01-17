@@ -1,21 +1,21 @@
 <form class="formstyle" action="" #form>
-  <h2 class="field">New Resource</h2>
+  <h2 class="field">New Product</h2>
   <div>
-    <mat-form-field  *ngIf="resource !== undefined && resource.product !== undefined" class="field" style="width: 95%">
-      <input id="name" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Name" [(ngModel)]="resource.product.name">
+    <mat-form-field  *ngIf="product !== undefined" class="field" style="width: 95%">
+      <input id="name" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Name" [(ngModel)]="product.name">
       <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field  *ngIf="resource !== undefined && resource.product !== undefined" class="field" style="width: 95%">
-      <input id="picture" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Picture URL" [(ngModel)]="resource.product.picture">
+    <mat-form-field  *ngIf="product !== undefined" class="field" style="width: 95%">
+      <input id="picture" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Picture URL" [(ngModel)]="product.picture">
       <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field  *ngIf="resource !== undefined && resource.product !== undefined" class="field" style="width:95%">
+    <mat-form-field  *ngIf="product !== undefined" class="field" style="width:95%">
       <mat-label>Category</mat-label>
-      <mat-select id="category" [ngModelOptions] ="{standalone: true}" [(ngModel)]="resource.product.category">
+      <mat-select id="category" [ngModelOptions] ="{standalone: true}" [(ngModel)]="product.category">
         <mat-option (click)="onCreateNewCategory()">+ New category</mat-option>
         <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
       </mat-select>
@@ -23,15 +23,21 @@
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field *ngIf="resource !== undefined" class="field" style="width: 48%">
-      <input id="street" type="number" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Amount" [(ngModel)]="resource.amount">
-      <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>
-    </mat-form-field>
-    <mat-form-field *ngIf="resource !== undefined && resource.product !== undefined" class="field" style="width:45%">
-      <input id="city" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Unit" [(ngModel)]="resource.product.unit">
+    <mat-form-field  *ngIf="product !== undefined" class="field" style="width: 95%">
+      <input id="unit" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Unit" [(ngModel)]="product.unit">
       <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>
     </mat-form-field>
   </div>
+<!--  <div>-->
+<!--    <mat-form-field *ngIf="resource !== undefined" class="field" style="width: 48%">-->
+<!--      <input id="street" type="number" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Amount" [(ngModel)]="resource.amount">-->
+<!--      <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field *ngIf="resource !== undefined && resource.product !== undefined" class="field" style="width:45%">-->
+<!--      <input id="city" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Unit" [(ngModel)]="resource.product.unit">-->
+<!--      <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>-->
+<!--    </mat-form-field>-->
+<!--  </div>-->
   <div class="safeButtons">
     <button class="buttonSelf" mat-raised-button color="warn" type="submit" (click)="onClose()">Back</button>
     <button class="buttonSelf" mat-raised-button color="primary" type="submit" [disabled]="!form.checkValidity()" (click)="onSubmit()">Save and Close</button>

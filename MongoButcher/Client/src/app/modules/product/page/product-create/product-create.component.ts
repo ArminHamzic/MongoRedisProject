@@ -3,6 +3,8 @@ import {Product} from '../../../../data/product';
 import {Category} from '../../../../data/category';
 import {Resource} from '../../../../data/resource';
 import {ResourceService} from '../../../../core/http/resource.service';
+import {CategoryService} from '../../../../core/http/category.service';
+import {ProductService} from '../../../../core/http/product.service';
 
 @Component({
   selector: 'app-product-create',
@@ -11,14 +13,19 @@ import {ResourceService} from '../../../../core/http/resource.service';
 })
 export class ProductCreateComponent implements OnInit {
 
-  resource = new Resource('', new Product(), 0);
-
+  // resource = new Resource('', new Product(), 0);
+  product = new Product();
   category = new Category('Spices', 'Includes all different spices', 'Kg');
+
   categories = Array<Category>();
-  constructor(private resourceService: ResourceService) {
+  constructor(private productService: ProductService, private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
+    this.categoryService.$category.subscribe(categories => {
+      this.categories = categories;
+    });
+    this.categoryService.loadCategories();
   }
 
   onCreateNewCategory(): void {
@@ -30,8 +37,9 @@ export class ProductCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // @ts-ignore
-    this.resource.product.category = this.category;
-    this.resourceService.save(this.resource).subscribe();
+    this.product.category = this.category;
+    this.productService.save(this.product).subscribe(e => {
+      // console.log(e);
+    });
   }
 }

@@ -1,6 +1,6 @@
 import {Product} from './product';
 
-export class Action {
+export class ActionHistory {
   id ?: string;
   description ?: string;
   creationDate ?: Date;

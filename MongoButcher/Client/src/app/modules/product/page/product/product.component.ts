@@ -17,6 +17,7 @@ export class ProductComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  amount: number = 0;
 
   constructor(private resourceService: ResourceService) {
     this.resourceService.$resources.subscribe((resources) => {
@@ -41,5 +42,13 @@ export class ProductComponent implements AfterViewInit {
 
   applyCategoryFilter(filter?: string): void {
     this.resourceService.loadResources(filter);
+  }
+
+  addAmount(row: Resource): void {
+    // @ts-ignore
+    row.amount += this.amount;
+    row.actionHistories = [];
+    this.resourceService.update(row).subscribe(e => this.resourceService.loadResources());
+    this.amount = 0;
   }
 }
