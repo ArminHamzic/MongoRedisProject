@@ -40,8 +40,7 @@ export class IngredientAddComponent implements OnInit {
   // @ts-ignore
   async onSubmit(): Resource {
     if (this.resource != null) {
-      this.onClose();
-      return this.resource;
+      this.dialogRef.close({data: this.resource});
     }
   }
 }

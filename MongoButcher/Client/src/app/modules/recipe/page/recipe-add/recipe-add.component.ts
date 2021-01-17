@@ -46,7 +46,10 @@ export class RecipeAddComponent implements OnInit {
   }
 
   onAddingResource(): void {
-    this.dialog.open(IngredientAddComponent, {autoFocus: true, width: '20%', disableClose: true});
+    const dialogRef = this.dialog.open(IngredientAddComponent, {autoFocus: true, width: '20%', disableClose: true});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result.data);
+    });
   }
 
   onClose(): void {
