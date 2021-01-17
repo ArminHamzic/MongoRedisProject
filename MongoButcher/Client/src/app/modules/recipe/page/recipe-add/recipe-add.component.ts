@@ -21,14 +21,21 @@ export class RecipeAddComponent implements OnInit {
   displayedColumns: string[] = ['name', 'category', 'unit', 'details', 'addResource', 'search'];
   dataSource!: MatTableDataSource<Resource>;
   recipe: Recipe;
+  products: Product[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private recipeService: RecipeService,
+              public productService: ProductService,
               public dialog: MatDialog) {
     this.recipe = new Recipe();
+    this.recipe.incrediants = [];
     this.dataSource = new MatTableDataSource();
+    this.productService.$products.subscribe((prod) => {
+      this.products = prod;
+    });
+    this.productService.loadProducts();
   }
 
   ngOnInit(): void {
@@ -49,6 +56,9 @@ export class RecipeAddComponent implements OnInit {
     const dialogRef = this.dialog.open(IngredientAddComponent, {autoFocus: true, width: '20%', disableClose: true});
     dialogRef.afterClosed().subscribe(result => {
       console.log(result.data);
+      this.recipe.incrediants?.push(result.data);
+      console.log(this.recipe.incrediants);
+      this.dataSource = new MatTableDataSource(this.recipe.incrediants);
     });
   }
 
@@ -57,6 +67,12 @@ export class RecipeAddComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.recipe);
     this.recipeService.save(this.recipe).subscribe();
+  }
+
+  onDelete(resource: Resource): void {
+    this.recipe.incrediants?.splice(this.recipe.incrediants?.indexOf(resource), 1);
+    this.dataSource = new MatTableDataSource(this.recipe.incrediants);
   }
 }

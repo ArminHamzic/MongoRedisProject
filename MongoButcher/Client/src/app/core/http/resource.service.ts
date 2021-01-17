@@ -15,7 +15,7 @@ export class ResourceService extends GenericService<Resource, string> {
   $resources = new BehaviorSubject<Resource[]>([]);
 
   constructor(protected httpClient: HttpClient) {
-    super(httpClient, `${environment.api_url}/product`);
+    super(httpClient, `${environment.api_url}/resource`);
   }
 
   getResourcesById(id: string): Observable<Resource | any> {
