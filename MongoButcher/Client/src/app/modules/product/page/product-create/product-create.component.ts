@@ -30,6 +30,7 @@ export class ProductCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
+    // @ts-ignore
     this.resource.product.category = this.category;
     this.resourceService.save(this.resource).subscribe();
   }

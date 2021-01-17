@@ -21,15 +21,21 @@ export class RecipeAddComponent implements OnInit {
   displayedColumns: string[] = ['name', 'category', 'unit', 'details', 'addResource', 'search'];
   dataSource!: MatTableDataSource<Resource>;
   recipe: Recipe;
+  products: Product[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private recipeService: RecipeService,
+              public productService: ProductService,
               public dialog: MatDialog) {
     this.recipe = new Recipe();
     this.recipe.incrediants = [];
     this.dataSource = new MatTableDataSource();
+    this.productService.$products.subscribe((prod) => {
+      this.products = prod;
+    });
+    this.productService.loadProducts();
   }
 
   ngOnInit(): void {
@@ -61,6 +67,7 @@ export class RecipeAddComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.recipe);
     this.recipeService.save(this.recipe).subscribe();
   }
 

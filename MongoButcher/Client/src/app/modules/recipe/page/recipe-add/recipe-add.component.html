@@ -60,6 +60,15 @@
 
     </table>
   </div>
+  <div class="vertical-center">
+    <mat-form-field class="field">
+      <mat-label>Product</mat-label>
+      <mat-select id="customer" [ngModelOptions] ="{standalone: true}" required [(ngModel)]="recipe.output">
+        <mat-option *ngFor="let prod of products" [value]="prod">{{prod.name}}</mat-option>
+      </mat-select>
+      <mat-error>Diesem Feld muss etwas zugewiesen werden!</mat-error>
+    </mat-form-field>
+  </div>
   <div class="buttonContent">
     <button class="buttonSelf" mat-raised-button color="warn" type="submit" (click)="onClose()">Zurück</button>
     <button class="buttonSelf" mat-raised-button color="primary" type="submit" [disabled]="!form.checkValidity()" (click)="onSubmit()">Speichern</button>
