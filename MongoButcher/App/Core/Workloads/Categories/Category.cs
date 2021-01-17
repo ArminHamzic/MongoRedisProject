@@ -7,6 +7,5 @@ namespace MongoDBDemoApp.Core.Workloads.Categories
     {
         public String Name { get; set; }
         public String Description { get; set; }
-        public String DefaultUnit { get; set; }
     }
 }

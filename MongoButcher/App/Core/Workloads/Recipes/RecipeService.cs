@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MongoDBDemoApp.Core.Util;
@@ -36,16 +37,16 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
 
             recipe.Incrediants.ForEach(async incrediant =>
             {
-                var resource = await _resourceRepository.GetResourceByProductName(incrediant.Product.Name);
+                var resource = await _resourceRepository.GetResourceByProductName(incrediant.ProductName);
 
                 if (resource == null)
                 {
-                    throw new Exception("resource of product not found: " + incrediant.Product.Name);
+                    throw new Exception("resource of product not found: " + incrediant.ProductName);
                 }
 
                 if (resource.Amount - incrediant.Amount < 0)
                 {
-                    throw new Exception("To little amount of: " + resource.Product.Name);
+                    throw new Exception("To little amount of: " + resource.ProductName);
                 }
 
                 resource.Amount -= incrediant.Amount;

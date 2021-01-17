@@ -5,7 +5,7 @@ namespace MongoDBDemoApp.Core.Workloads.Resources
 {
     public class Resource : EntityBase
     {
-        public Product Product { get; set; }
+        public string ProductName { get; set; }
         public double Amount { get; set; }
     }
 }

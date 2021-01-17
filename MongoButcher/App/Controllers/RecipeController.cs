@@ -25,6 +25,7 @@ namespace MongoDBDemoApp.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
         public async Task<ActionResult<Recipe>> GetById(string id)
         {
             Recipe? entity;

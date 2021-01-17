@@ -25,6 +25,7 @@ namespace MongoDBDemoApp.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
         public async Task<ActionResult<Resource>> GetById(string id)
         {
             Resource? entity;
@@ -63,7 +64,7 @@ namespace MongoDBDemoApp.Controllers
 
             using var transaction = await this._transactionProvider.BeginTransaction();
 
-            var resource = await _service.GetResourceByProductName(update.Product.Name);
+            var resource = await _service.GetResourceByProductName(update.ProductName);
 
             if (resource == null)
             {

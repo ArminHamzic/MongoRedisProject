@@ -33,6 +33,7 @@ namespace MongoDBDemoApp.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
         public async Task<ActionResult<Product>> GetById(string id)
         {
             Product? post;
@@ -56,7 +57,6 @@ namespace MongoDBDemoApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Product newProduct)
         {
-            // for a real app it would be a good idea to configure model validation to remove long ifs like this
             if (string.IsNullOrWhiteSpace(newProduct.Name)
                 || string.IsNullOrWhiteSpace(newProduct.Picture))
             {
@@ -69,7 +69,7 @@ namespace MongoDBDemoApp.Controllers
             newProduct.Category = category;
 
             var entity = await this._service.AddEntity(newProduct);
-            var newResource = new Resource {Amount = 0, Product = entity};
+            var newResource = new Resource {Amount = 0, ProductName = entity.Name};
 
             await _resourceService.AddEntity(newResource);
 
