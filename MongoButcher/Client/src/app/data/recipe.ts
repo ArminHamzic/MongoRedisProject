@@ -6,13 +6,13 @@ export class Recipe {
   name ?: string;
   procedure ?: string;
   output ?: Product;
-  resources ?: Array<Resource>;
+  incrediants ?: Array<Resource>;
 
   constructor(id?: string, name?: string, procedure?: string, output?: Product, ingredients?: Array<Resource>) {
     this.id = id;
     this.name = name;
     this.procedure = procedure;
-    this.resources = ingredients;
+    this.incrediants = ingredients;
     this.output = output;
   }
 }

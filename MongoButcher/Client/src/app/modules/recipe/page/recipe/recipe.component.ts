@@ -18,6 +18,7 @@ export class RecipeComponent implements AfterViewInit {
     this.recipeService.$recipes.subscribe((recipes) => {
       this.dataSource = new MatTableDataSource(recipes);
     });
+    this.recipeService.load();
   }
 
   displayedColumns: string[] = ['picture', 'name', 'details'];

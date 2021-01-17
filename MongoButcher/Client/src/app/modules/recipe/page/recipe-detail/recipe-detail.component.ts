@@ -10,6 +10,7 @@ import {ProductService} from '../../../../core/http/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {map} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {Resource} from '../../../../data/resource';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -18,8 +19,8 @@ import {Observable} from "rxjs";
 })
 export class RecipeDetailComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'category', 'unit', 'details'];
-  dataSource!: MatTableDataSource<Product>;
+  displayedColumns: string[] = ['name', 'category', 'unit'];
+  dataSource!: MatTableDataSource<Resource>;
 
   recipe: Recipe;
 
@@ -27,14 +28,10 @@ export class RecipeDetailComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private resourceService: ResourceService,
-              private productService: ProductService,
               private router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog) {
     this.recipe = new Recipe();
-    this.resourceService.$resources.subscribe((resources) => {
-      this.dataSource = new MatTableDataSource(resources);
-    });
   }
 
   ngOnInit(): void {
@@ -42,6 +39,8 @@ export class RecipeDetailComponent implements OnInit {
       .pipe(map(data => data.recipe))
       .subscribe((recipe: Recipe) => {
         this.recipe = recipe;
+        console.log(recipe.incrediants);
+        this.dataSource = new MatTableDataSource(this.recipe.incrediants);
       });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

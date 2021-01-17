@@ -8,6 +8,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {IngredientAddComponent} from '../ingredient-add/ingredient-add.component';
 import {ResourceService} from '../../../../core/http/resource.service';
 import {ProductService} from '../../../../core/http/product.service';
+import {RecipeService} from '../../../../core/http/recipe.service';
+import {Resource} from '../../../../data/resource';
 
 @Component({
   selector: 'app-recipe-add',
@@ -17,19 +19,16 @@ import {ProductService} from '../../../../core/http/product.service';
 export class RecipeAddComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'category', 'unit', 'details', 'addResource', 'search'];
-  dataSource!: MatTableDataSource<Product>;
+  dataSource!: MatTableDataSource<Resource>;
   recipe: Recipe;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private resourceService: ResourceService,
-              private productService: ProductService,
+  constructor(private recipeService: RecipeService,
               public dialog: MatDialog) {
     this.recipe = new Recipe();
-    this.resourceService.$resources.subscribe((resources) => {
-      this.dataSource = new MatTableDataSource(resources);
-    });
+    this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void {
@@ -46,11 +45,15 @@ export class RecipeAddComponent implements OnInit {
     }
   }
 
-  applyCategoryFilter(filter?: string): void {
-    this.resourceService.loadResources(filter);
-  }
-
   onAddingResource(): void {
     this.dialog.open(IngredientAddComponent, {autoFocus: true, width: '20%', disableClose: true});
+  }
+
+  onClose(): void {
+
+  }
+
+  onSubmit(): void {
+    this.recipeService.save(this.recipe).subscribe();
   }
 }

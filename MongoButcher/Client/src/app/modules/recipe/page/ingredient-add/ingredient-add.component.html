@@ -1,13 +1,13 @@
 <form action="" #form>
   <mat-grid-list cols="1" rowHeight="400px">
     <div class="vertical-center" style="margin-top: 3%">
-      <h2>Neue Ressource</h2>
+      <h2>Add Resource</h2>
     </div>
     <mat-grid-tile>
       <div>
         <div class="vertical-center">
           <mat-form-field class="field">
-            <mat-label>Produkt</mat-label>
+            <mat-label>Product</mat-label>
             <mat-select id="customer" [ngModelOptions] ="{standalone: true}" required [(ngModel)]="resource.product">
               <mat-option *ngFor="let prod of products" [value]="prod">{{prod.name}}</mat-option>
             </mat-select>
@@ -16,7 +16,7 @@
         </div>
         <div class="vertical-center">
           <mat-form-field class="field">
-            <input id="amount" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Menge" [(ngModel)]="resource.amount">
+            <input id="amount" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Amount" [(ngModel)]="resource.amount">
             <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>
           </mat-form-field>
         </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Product} from '../../../../data/product';
 import {Category} from '../../../../data/category';
 import {Resource} from '../../../../data/resource';
+import {ResourceService} from '../../../../core/http/resource.service';
 
 @Component({
   selector: 'app-product-create',
@@ -10,9 +11,9 @@ import {Resource} from '../../../../data/resource';
 })
 export class ProductCreateComponent implements OnInit {
 
-  resource = new Resource('', new Product(),0);
+  resource = new Resource('', new Product(), 0);
   categories = Array<Category>();
-  constructor() {
+  constructor(private resourceService: ResourceService) {
   }
 
   ngOnInit(): void {
@@ -22,11 +23,11 @@ export class ProductCreateComponent implements OnInit {
 
   }
 
-  onClose() {
+  onClose(): void  {
 
   }
 
-  onSubmit() {
-
+  onSubmit(): void {
+    this.resourceService.save(this.resource);
   }
 }

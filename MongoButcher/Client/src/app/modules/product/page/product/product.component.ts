@@ -2,8 +2,8 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {Product} from '../../../../data/product';
 import {ResourceService} from '../../../../core/http/resource.service';
+import {Resource} from '../../../../data/resource';
 
 @Component({
   selector: 'app-product',
@@ -13,19 +13,16 @@ import {ResourceService} from '../../../../core/http/resource.service';
 export class ProductComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['picture', 'name', 'category', 'amount', 'details'];
-  dataSource!: MatTableDataSource<Product>;
+  dataSource!: MatTableDataSource<Resource>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private resourceService: ResourceService) {
-    const test = new Product();
-    test.id = '12';
-    test.name = 'Salz';
-    test.category = 'sonstig';
     this.resourceService.$resources.subscribe((resources) => {
       this.dataSource = new MatTableDataSource(resources);
     });
+    this.resourceService.loadResources();
   }
 
   ngAfterViewInit(): void {
