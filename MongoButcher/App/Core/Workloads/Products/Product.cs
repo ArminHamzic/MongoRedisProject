@@ -8,5 +8,6 @@ namespace MongoDBDemoApp.Core.Workloads.Products
         public string Name { get; set; }
         public Category Category { get; set; }
         public string Picture { get; set; }
+        public string Unit { get; set; }
     }
 }

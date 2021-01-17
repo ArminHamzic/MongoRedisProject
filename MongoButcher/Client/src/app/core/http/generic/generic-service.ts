@@ -21,8 +21,9 @@ export abstract class GenericService<T, ID> implements CrudOperations<T, ID> {
     return this.http.post<T>(this.base, t);
   }
 
-  update(id: ID, t: T): Observable<T> {
-    return this.http.put<T>(this.base + '/' + id, t, {});
+  // @ts-ignore
+  update(t: T): Observable<T> {
+    return this.http.put<T>(this.base, t, {});
   }
 
   delete(id: ID): Observable<T> {
