@@ -1,1 +1,13 @@
+.field {
+  margin: 20px;
+}
 
+.buttonSelf {
+  width: 10%;
+  transition: transform 0.2s;
+  margin: 20px;
+}
+
+.buttonSelf:hover {
+  transform: scale(1.1);
+}

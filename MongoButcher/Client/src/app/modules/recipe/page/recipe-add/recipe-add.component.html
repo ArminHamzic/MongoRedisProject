@@ -1,67 +1,77 @@
 <form class="formstyle" action="" #form>
   <h2 class="field">New Recipe</h2>
   <div>
-    <mat-form-field class="field" style="width: 95%">
-      <input id="name" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="" [(ngModel)]="recipe.name">
+    <mat-form-field class="field" style="width: 60%">
+      <input id="name" type="text" [ngModelOptions] ="{standalone: true}" required matInput placeholder="Recipename" [(ngModel)]="recipe.name">
       <mat-error>Dieses Feld muss ausgefüllt werden!</mat-error>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field  class="field" style="width: 95%">
+    <mat-form-field  class="field" style="width: 60%">
       <textarea matInput placeholder = "Procedure" rows="8" style="background-color:whitesmoke;" [ngModelOptions] ="{standalone: true}" [(ngModel)]="recipe.procedure"></textarea>
     </mat-form-field>
   </div>
-
-  <div class="mat-elevation-z8" style="width: 95%">
-    <table mat-table [dataSource]="dataSource" matSort width="100%">
-
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef width="10%"> Name </th>
-        <td mat-cell *matCellDef="let row"> {{row.product.name}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"> Category </th>
-        <td mat-cell *matCellDef="let row"> {{row.product.category.name}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="unit">
-        <th mat-header-cell *matHeaderCellDef width="10%"> Amount </th>
-        <td mat-cell *matCellDef="let row"> {{row.amount}} {{row.product.unit}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="details">
-        <th mat-header-cell *matHeaderCellDef width="10%">Configurations</th>
-        <td mat-cell *matCellDef="let row" class="align-right">
-          <mat-chip-list aria-label="edit selection">
-            <button class="iconBut" mat-icon-button (click)="onDelete(row)"><mat-icon>delete</mat-icon></button>
-          </mat-chip-list>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="addResource">
-        <th mat-header-cell *matHeaderCellDef width="4%">
-          <button mat-raised-button color="primary" (click)="onAddingResource()"><mat-icon>add</mat-icon>add Ressource</button>
-        </th>
-        <td mat-cell *matCellDef="let row"></td>
-      </ng-container>
-
-      <ng-container matColumnDef="search">
-        <th mat-header-cell *matHeaderCellDef width="10%">
-          <mat-form-field class="search-form-field" floatLabel="never">
-            <input matInput (keyup)="applyFilter($event)" placeholder="Suchen" autocomplete="off">
-          </mat-form-field>
-        </th>
-        <td mat-cell *matCellDef="let row"></td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    </table>
+  <div class="vertical-center" style="margin: 20px">
+    <br>
+    <mat-divider style="width: 100%"></mat-divider>
+    <br>
   </div>
-  <div class="vertical-center">
-    <mat-form-field class="field">
+  <div class="vertical-center" style="margin: 20px">
+    <div class="mat-elevation-z8" style="width: 100%">
+      <table mat-table [dataSource]="dataSource" matSort width="100%">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef width="10%"> Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.product.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"> Category </th>
+          <td mat-cell *matCellDef="let row"> {{row.product.category.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="unit">
+          <th mat-header-cell *matHeaderCellDef width="10%"> Amount </th>
+          <td mat-cell *matCellDef="let row"> {{row.amount}} {{row.product.unit}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef width="10%">Configurations</th>
+          <td mat-cell *matCellDef="let row" class="align-right">
+            <mat-chip-list aria-label="edit selection">
+              <button class="iconBut" mat-icon-button (click)="onDelete(row)"><mat-icon>delete</mat-icon></button>
+            </mat-chip-list>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="addResource">
+          <th mat-header-cell *matHeaderCellDef width="4%">
+            <button mat-raised-button color="primary" (click)="onAddingResource()"><mat-icon>add</mat-icon>add Ressource</button>
+          </th>
+          <td mat-cell *matCellDef="let row"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="search">
+          <th mat-header-cell *matHeaderCellDef width="10%">
+            <mat-form-field class="search-form-field" floatLabel="never">
+              <input matInput (keyup)="applyFilter($event)" placeholder="Search" autocomplete="off">
+            </mat-form-field>
+          </th>
+          <td mat-cell *matCellDef="let row"></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+  <div class="vertical-center" style="margin: 20px">
+    <br>
+    <mat-divider style="width: 100%"></mat-divider>
+    <br>
+  </div>
+  <h2 class="field">Choose Product</h2>
+  <div>
+    <mat-form-field class="field" style="width: 15%">
       <mat-label>Product</mat-label>
       <mat-select id="customer" [ngModelOptions] ="{standalone: true}" required [(ngModel)]="recipe.output">
         <mat-option *ngFor="let prod of products" [value]="prod">{{prod.name}}</mat-option>
@@ -70,8 +80,8 @@
     </mat-form-field>
   </div>
   <div class="buttonContent">
-    <button class="buttonSelf" mat-raised-button color="warn" type="submit" (click)="onClose()">Zurück</button>
-    <button class="buttonSelf" mat-raised-button color="primary" type="submit" [disabled]="!form.checkValidity()" (click)="onSubmit()">Speichern</button>
+    <button class="buttonSelf" mat-raised-button color="warn" type="submit" (click)="onClose()">back</button>
+    <button class="buttonSelf" mat-raised-button color="primary" type="submit" [disabled]="!form.checkValidity()" (click)="onSubmit()">submit</button>
   </div>
 </form>
 

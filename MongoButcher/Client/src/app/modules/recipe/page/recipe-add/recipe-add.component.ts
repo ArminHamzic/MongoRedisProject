@@ -10,6 +10,7 @@ import {ResourceService} from '../../../../core/http/resource.service';
 import {ProductService} from '../../../../core/http/product.service';
 import {RecipeService} from '../../../../core/http/recipe.service';
 import {Resource} from '../../../../data/resource';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-recipe-add',
@@ -28,6 +29,7 @@ export class RecipeAddComponent implements OnInit {
 
   constructor(private recipeService: RecipeService,
               public productService: ProductService,
+              private router: Router,
               public dialog: MatDialog) {
     this.recipe = new Recipe();
     this.recipe.incrediants = [];
@@ -63,12 +65,14 @@ export class RecipeAddComponent implements OnInit {
   }
 
   onClose(): void {
-
+    this.router.navigate(['/recipes']);
   }
 
   onSubmit(): void {
     console.log(this.recipe);
-    this.recipeService.save(this.recipe).subscribe();
+    this.recipeService.save(this.recipe).subscribe(r => {
+      this.router.navigate(['/recipes']);
+    });
   }
 
   onDelete(resource: Resource): void {
