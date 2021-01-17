@@ -29,6 +29,7 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
         public async Task<Resource> ExecuteRecipe(string recipeName)
         {
             var recipe = await _recipeRepository.GetRecipeByName(recipeName);
+            ActionHistory history = new ActionHistory{Description = "Ein Fehler", CreationDate = DateTime.Now};
 
             if (recipe == null)
             {
@@ -50,6 +51,9 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
                 }
 
                 resource.Amount -= incrediant.Amount;
+                history = new ActionHistory
+                    {Description = "Execute Recipe: " + recipeName, CreationDate = DateTime.Now};
+                resource.ActionHistories.Add(history);
 
                 await _resourceRepository.UpdateEntity(resource);
             });
@@ -62,9 +66,10 @@ namespace MongoDBDemoApp.Core.Workloads.Recipes
             }
 
             toUpdateResource.Amount += 1;
+
+
+            await _historyRepository.AddEntity(history);
             
-            await _historyRepository.AddEntity(new ActionHistory
-                {Description = "Execute Recipe: " + recipeName, CreationDate = DateTime.Now});
 
             return await _resourceRepository.UpdateEntity(toUpdateResource);
         }

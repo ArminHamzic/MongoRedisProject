@@ -4,6 +4,7 @@ using AutoMapper;
 using LeoMongo.Transaction;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using MongoDBDemoApp.Core.Workloads.ActionHistories;
 using MongoDBDemoApp.Core.Workloads.Categories;
 using MongoDBDemoApp.Core.Workloads.Products;
 using MongoDBDemoApp.Core.Workloads.Resources;
@@ -69,7 +70,8 @@ namespace MongoDBDemoApp.Controllers
             newProduct.Category = category;
 
             var entity = await this._service.AddEntity(newProduct);
-            var newResource = new Resource {Amount = 0, ProductName = entity.Name};
+            var newResource = new Resource
+                {Amount = 0, ProductName = entity.Name, ActionHistories = new List<ActionHistory>()};
 
             await _resourceService.AddEntity(newResource);
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -50,7 +51,14 @@ namespace MongoDBDemoApp.Controllers
         [Route("execute/{name}")]
         public async Task<ActionResult> ExecuteRecipe(string name)
         {
-            return Ok(await _service.ExecuteRecipe(name));
+            try
+            {
+                return Ok(await _service.ExecuteRecipe(name));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
 
         [HttpPost]
