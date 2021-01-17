@@ -4,6 +4,7 @@ import {Product} from "../../../../data/product";
 import {MatDialogRef} from "@angular/material/dialog";
 import {RecipeAddComponent} from "../recipe-add/recipe-add.component";
 import {ProductService} from "../../../../core/http/product.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-recipe-produce-amount',
