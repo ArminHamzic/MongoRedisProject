@@ -2,7 +2,6 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Recipe} from '../../../../data/recipe';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
 import {RecipeService} from '../../../../core/http/recipe.service';
 
 
@@ -31,7 +30,6 @@ export class RecipeComponent implements AfterViewInit {
   }
 
   onDelete(id: string): void {
-    this.recipeService.delete(id);
-    this.recipeService.load();
+    this.recipeService.delete(id).subscribe(r => this.recipeService.load());
   }
 }
