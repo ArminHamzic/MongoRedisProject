@@ -96,7 +96,7 @@ namespace MongoDBDemoApp.Controllers
                 return NotFound();
             }
 
-            resource.Amount += update.Amount;
+            resource.Amount = update.Amount;
             resource = await this._service.UpdateEntity(resource);
 
             await transaction.CommitAsync();
