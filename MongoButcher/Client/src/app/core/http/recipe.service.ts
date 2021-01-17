@@ -20,4 +20,8 @@ export class RecipeService extends GenericService<Recipe, string> {
   load(): void {
     this.getAll().subscribe(e => this.$recipes.next(e));
   }
+
+  produce(recipe: string | undefined): void{
+    this.httpClient.get(`${this.base}/execute/${recipe}`).subscribe();
+  }
 }
