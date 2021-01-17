@@ -70,7 +70,9 @@ export class RecipeAddComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.recipe);
-    this.recipeService.save(this.recipe).subscribe();
+    this.recipeService.save(this.recipe).subscribe(r => {
+      this.router.navigate(['/recipes']);
+    });
   }
 
   onDelete(resource: Resource): void {
