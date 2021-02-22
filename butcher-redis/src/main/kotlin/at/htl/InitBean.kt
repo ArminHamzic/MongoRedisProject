@@ -1,17 +1,14 @@
 package at.htl
 
 import io.quarkus.redis.client.RedisClient
-import io.quarkus.runtime.StartupEvent
-import javax.enterprise.context.ApplicationScoped
-
-import javax.enterprise.event.Observes
 import io.quarkus.redis.client.reactive.ReactiveRedisClient
+import io.quarkus.runtime.QuarkusApplication
+import io.quarkus.runtime.annotations.QuarkusMain
 import java.util.*
 import javax.inject.Inject
 
-
-@ApplicationScoped
-class InitBean {
+@QuarkusMain
+class InitBean : QuarkusApplication {
 
     @Inject
     var redisClient: RedisClient? = null
@@ -19,9 +16,10 @@ class InitBean {
     @Inject
     var reactiveRedisClient: ReactiveRedisClient? = null
 
-    fun onStartup(@Observes event: StartupEvent?) {
+    override fun run(vararg args: String?): Int {
         set("first", 10)
         println(get("first"))
+        return 10;
     }
 
     operator fun set(key: String?, value: Int) {
@@ -31,6 +29,5 @@ class InitBean {
     operator fun get(key: String?): String? {
         return redisClient!![key].toString()
     }
-
 
 }
