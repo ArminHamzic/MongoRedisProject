@@ -1,7 +1,7 @@
 
 
 <div class="mat-elevation-z8" style="margin: 20px">
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort style="margin-bottom: 3%">
 
     <!-- Category Column -->
     <ng-container matColumnDef="picture">
@@ -38,8 +38,8 @@
     <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef class="align-right">Configurations</th>
       <td mat-cell *matCellDef="let row" class="align-right">
-        <input style="width: 20%;" type="number" matInput placeholder="Amount" [(ngModel)]="amount">
-        <button class="buttonSelf" mat-raised-button color="primary" type="submit" (click)="addAmount(row)">Add</button>
+        <input style="width: 20%;" type="number" matInput placeholder="Amount" [(ngModel)]="amounts[dataSource.data.indexOf(row)]">
+        <button class="buttonSelf" mat-raised-button color="primary" type="submit" (click)="addAmount(dataSource.data.indexOf(row), row)">Add</button>
       </td>
     </ng-container>
 

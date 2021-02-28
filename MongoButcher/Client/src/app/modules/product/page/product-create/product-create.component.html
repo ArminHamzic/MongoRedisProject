@@ -16,7 +16,7 @@
     <mat-form-field  *ngIf="product !== undefined" class="field" style="width:60%">
       <mat-label>Category</mat-label>
       <mat-select id="category" [ngModelOptions] ="{standalone: true}" [(ngModel)]="product.category">
-        <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category" (onSelectionChange)="onCategoryChange(category)">{{category.name}}</mat-option>
       </mat-select>
       <mat-error>Diesem Feld muss etwas zugewiesen werden!</mat-error>
     </mat-form-field>
