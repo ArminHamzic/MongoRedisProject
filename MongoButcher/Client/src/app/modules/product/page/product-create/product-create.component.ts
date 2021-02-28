@@ -30,6 +30,10 @@ export class ProductCreateComponent implements OnInit {
     this.categoryService.loadCategories();
   }
 
+  onCategoryChange(category: Category): void{
+    this.category = category;
+  }
+
   onClose(): void  {
     this.router.navigate(['/products']);
   }

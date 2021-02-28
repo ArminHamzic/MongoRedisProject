@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  amount = 0;
+  amounts: number[] = [];
 
   constructor(private resourceService: ResourceService) {
   }
@@ -36,11 +36,12 @@ export class ProductComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  addAmount(row: Resource): void {
+  addAmount(index: number, row: Resource): void {
     // @ts-ignore
-    row.amount += this.amount;
+    row.amount += this.amounts[index];
     row.actionHistories = [];
     this.resourceService.update(row).subscribe(e => this.resourceService.loadResources());
-    this.amount = 0;
+    // @ts-ignore
+    this.amounts = [];
   }
 }
